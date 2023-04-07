@@ -1,51 +1,118 @@
+
+
 {
- "actions": [],
- "creation": "2021-05-11 18:36:59.370091",
- "doctype": "DocType",
- "editable_grid": 1,
- "engine": "InnoDB",
- "field_order": [
-  "service_provider",
-  "companies"
- ],
- "fields": [
-  {
-   "fieldname": "service_provider",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Service Provider Settings",
-   "options": "DocType",
-   "reqd": 1
-  },
-  {
-   "fieldname": "companies",
-   "fieldtype": "Small Text",
-   "hidden": 1,
-   "label": "Companies",
-   "read_only": 1
-  }
- ],
- "index_web_pages_for_search": 1,
- "issingle": 1,
- "links": [],
- "modified": "2021-08-13 15:59:55.025514",
- "modified_by": "Administrator",
- "module": "ERPNext GST Compliance",
- "name": "E Invoicing Settings",
- "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "print": 1,
-   "read": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
- "sort_field": "modified",
- "sort_order": "DESC",
- "track_changes": 1
-}
+    "actions": [],
+    "creation": "2020-09-24 16:23:16.235722",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+     "enable",
+     "section_break_2",
+     "sandbox_mode",
+     "applicable_from",
+     "column_break_4",
+     "dont_show_discounts_in_e_invoice",
+     "section_break_7",
+     "credentials",
+     "advanced_settings_section",
+     "client_id",
+     "column_break_8",
+     "client_secret",
+     "auth_token",
+     "token_expiry"
+    ],
+    "fields": [
+     {
+      "default": "0",
+      "fieldname": "enable",
+      "fieldtype": "Check",
+      "label": "Enable"
+     },
+     {
+      "depends_on": "enable",
+      "fieldname": "section_break_2",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "auth_token",
+      "fieldtype": "Data",
+      "hidden": 1,
+      "read_only": 1
+     },
+     {
+      "fieldname": "token_expiry",
+      "fieldtype": "Datetime",
+      "hidden": 1,
+      "read_only": 1
+     },
+     {
+      "fieldname": "credentials",
+      "fieldtype": "Table",
+      "label": "Credentials",
+      "mandatory_depends_on": "enable",
+      "options": "E Invoice User"
+     },
+     {
+      "default": "0",
+      "fieldname": "sandbox_mode",
+      "fieldtype": "Check",
+      "label": "Sandbox Mode"
+     },
+     {
+      "fieldname": "applicable_from",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "label": "Applicable From",
+      "reqd": 1
+     },
+     {
+      "collapsible": 1,
+      "fieldname": "advanced_settings_section",
+      "fieldtype": "Section Break",
+      "label": "Advanced Settings"
+     },
+     {
+      "fieldname": "client_id",
+      "fieldtype": "Data",
+      "label": "Client ID"
+     },
+     {
+      "fieldname": "client_secret",
+      "fieldtype": "Password",
+      "label": "Client Secret"
+     },
+     {
+      "fieldname": "column_break_8",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "column_break_4",
+      "fieldtype": "Column Break"
+     },
+     {
+      "default": "1",
+      "description": "Enabling this will directly report net rates in e-Invoice post discounts",
+      "fieldname": "dont_show_discounts_in_e_invoice",
+      "fieldtype": "Check",
+      "label": "Don't show discounts in e-Invoice"
+     },
+     {
+      "fieldname": "section_break_7",
+      "fieldtype": "Section Break",
+      "hide_border": 1
+     }
+    ],
+    "index_web_pages_for_search": 1,
+    "issingle": 1,
+    "links": [],
+    "modified": "2022-07-17 14:57:50.783517",
+    "modified_by": "Administrator",
+    "module": "ERPNext GST Compliance",
+    "name": "E Invoice Settings",
+    "owner": "Administrator",
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1
+   }

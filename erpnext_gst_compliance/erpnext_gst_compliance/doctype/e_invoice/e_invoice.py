@@ -5,6 +5,7 @@
 from __future__ import unicode_literals
 
 import six
+from erpnext_gst_compliance.erpnext_gst_compliance.india.utils import get_gst_accounts
 import frappe
 from frappe import _
 from json import loads, dumps
@@ -13,11 +14,11 @@ from frappe.model.document import Document
 from frappe.utils.data import cint, format_date, getdate, flt
 from frappe.core.doctype.version.version import get_diff
 
-from erpnext.regional.india.utils import get_gst_accounts
 
 class EInvoice(Document):
 	def validate(self):
 		self.validate_uom()
+		get_gst_accounts()
 		self.validate_items()
 	
 	def before_submit(self):

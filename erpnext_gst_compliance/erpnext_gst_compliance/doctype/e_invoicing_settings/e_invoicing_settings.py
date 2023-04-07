@@ -4,19 +4,14 @@
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils.data import get_link_to_form
 
-class EInvoicingSettings(Document):
+
+class EInvoiceSettings(Document):
 	def validate(self):
-		if self.service_provider and not frappe.db.get_single_value(self.service_provider, 'enabled'):
-			settings_form = get_link_to_form(self.service_provider, self.service_provider)
-			frappe.throw(_('Selected Service Provider is disabled. Please enable it by visitng {} Form.')
-				.format(settings_form))
+		if self.enable and not self.credentials:
+			frappe.throw(_("You must add atleast one credentials to be able to use E Invoicing."))
 
-		if self.service_provider:
-			service_provider_doc = frappe.get_single(self.service_provider)
-			if not service_provider_doc.credentials:
-				msg = _("Selected Service Provider doesn't have credentials setup.") + ' '
-				msg += _("Please add atleast one credential to enable e-invoicing.")
-				frappe.throw(msg)
-			self.companies = ', '.join((d.company for d in service_provider_doc.credentials))
+		prev_doc = self.get_doc_before_save()
+		if prev_doc.client_secret != self.client_secret or prev_doc.client_id != self.client_id:
+			self.auth_token = None
+			self.token_expiry = None
