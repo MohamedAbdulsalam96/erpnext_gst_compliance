@@ -17,7 +17,7 @@ frappe.listview_settings['Sales Invoice'].onload = function (list_view) {
 		}
 
 		frappe.call({
-			method: 'erpnext.regional.india.utils.generate_ewb_json',
+			method: 'erpnext_gst_compliance.erpnext_gst_compliance.india.utils.generate_ewb_json',
 			args: {
 				'dt': list_view.doctype,
 				'dn': docnames
@@ -25,7 +25,7 @@ frappe.listview_settings['Sales Invoice'].onload = function (list_view) {
 			callback: function(r) {
 				if (r.message) {
 					const args = {
-						cmd: 'erpnext.regional.india.utils.download_ewb_json',
+						cmd: 'erpnext_gst_compliance.erpnext_gst_compliance.india.utils.download_ewb_json',
 						data: r.message,
 						docname: docnames
 					};
@@ -41,7 +41,7 @@ frappe.listview_settings['Sales Invoice'].onload = function (list_view) {
 		const docnames = list_view.get_checked_items(true);
 		if (docnames && docnames.length) {
 			frappe.call({
-				method: 'erpnext.regional.india.e_invoice.utils.generate_einvoices',
+				method: 'erpnext_gst_compliance.erpnext_gst_compliance.india.e_invoice.utils.generate_einvoices',
 				args: { docnames },
 				freeze: true,
 				freeze_message: __('Generating E-Invoices...')

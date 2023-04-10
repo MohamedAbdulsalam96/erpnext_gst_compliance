@@ -1,5 +1,5 @@
-{% include "erpnext/regional/india/taxes.js" %}
-{% include "erpnext/regional/india/e_invoice/einvoice.js" %}
+{% include "erpnext_gst_compliance/erpnext_gst_compliance/india/taxes.js" %}
+{% include "erpnext_gst_compliance/erpnext_gst_compliance/india/e_invoice/einvoice.js" %}
 
 erpnext.setup_auto_gst_taxation('Sales Invoice');
 erpnext.setup_einvoice_actions('Sales Invoice')
@@ -29,7 +29,7 @@ frappe.ui.form.on("Sales Invoice", {
 
 			frm.add_custom_button('E-Way Bill JSON', () => {
 				frappe.call({
-					method: 'erpnext.regional.india.utils.generate_ewb_json',
+					method: 'erpnext_gst_compliance.erpnext_gst_compliance.india.utils.generate_ewb_json',
 					args: {
 						'dt': frm.doc.doctype,
 						'dn': [frm.doc.name]
@@ -37,7 +37,7 @@ frappe.ui.form.on("Sales Invoice", {
 					callback: function(r) {
 						if (r.message) {
 							const args = {
-								cmd: 'erpnext.regional.india.utils.download_ewb_json',
+								cmd: 'erpnext_gst_compliance.erpnext_gst_compliance.india.utils.download_ewb_json',
 								data: r.message,
 								docname: frm.doc.name
 							};

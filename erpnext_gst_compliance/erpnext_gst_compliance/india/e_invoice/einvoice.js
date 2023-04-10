@@ -1,9 +1,6 @@
 erpnext.setup_einvoice_actions = (doctype) => {
-	console.log("//////////////////////////////////////////////",frm.doc.doctype)
 	frappe.ui.form.on(doctype, {
 		async refresh(frm) {
-			console.log("heloooooooooooooooooooooooooooooooooooo")
-
 
 			frm.add_custom_button(__('Custom Button'), function() {
 				// Your custom button code here
