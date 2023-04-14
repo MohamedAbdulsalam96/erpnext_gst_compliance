@@ -11,16 +11,15 @@ app_license = "GNU GPL v3.0"
 
 before_tests = [
 	"erpnext.setup.utils.before_tests",
-	"erpnext_gst_compliance.erpnext_gst_compliance.setup.before_test"
 ]
-after_install = "erpnext_gst_compliance.erpnext_gst_compliance.india.setup.setup"
+after_install = ["erpnext_gst_compliance.erpnext_gst_compliance.india.setup.setup",
+                 "erpnext_gst_compliance.erpnext_gst_compliance.india.setup.setup"
+]
 
 doctype_js = {
 	"Sales Invoice": [
-					"public/js/sales_invoice.js",
-					"erpnext_gst_compliance/erpnext_gst_compliance/india/e_invoice/einvoice.js",
                     "public/js/india.js",
-					"public/js/india_js.js",
+                    "erpnext_gst_compliance.erpnext_gst_compliance.india.e_invoice.einvoice.js"
 				]}
 
 
@@ -33,8 +32,8 @@ doctype_list_js = {
 
 doc_events = {
 	"Sales Invoice": {
-		"on_update": "erpnext_gst_compliance.erpnext_gst_compliance.doctype.e_invoice.e_invoice.validate_sales_invoice_change",
-		"on_submit": "erpnext_gst_compliance.erpnext_gst_compliance.doctype.e_invoice.e_invoice.validate_sales_invoice_submission",
+		"on_submit":["public/js/sales_invoice.js"],
+        
 		"on_cancel": [
 			"erpnext_gst_compliance.erpnext_gst_compliance.doctype.e_invoice.e_invoice.validate_sales_invoice_cancellation",
 			"erpnext_gst_compliance.erpnext_gst_compliance.doctype.e_invoice.e_invoice.cancel_e_invoice"
@@ -50,8 +49,6 @@ doc_events = {
 		]
 	},
 	"Company": {
-		# "after_insert": "erpnext_gst_compliance.erpnext_gst_compliance.setup.on_company_update",
-		# "on_update": "erpnext_gst_compliance.erpnext_gst_compliance.setup.on_company_update",
 		"on_trash": "erpnext_gst_compliance.erpnext_gst_compliance.india.utils.delete_gst_settings_for_company"
 
 	},
@@ -72,7 +69,6 @@ doc_events = {
 		"validate": [
 			"erpnext_gst_compliance.erpnext_gst_compliance.india.utils.update_grand_total_for_rcm",
             "erpnext_gst_compliance.erpnext_gst_compliance.india.utils.validate_reverse_charge_transaction",
-			"erpnext_gst_compliance.erpnext_gst_compliance.india.utils.update_itc_availed_fields",
 			"erpnext_gst_compliance.erpnext_gst_compliance.india.utils.update_taxable_values"
 
 		

@@ -6,38 +6,15 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "general_tab",
-  "hsn_wise_tax_breakup",
-  "enable_reverse_charge_in_sales",
-  "enable_overseas_transactions",
+  "gst_summary",
+  "gst_tax_settings_section_section",
   "round_off_gst_values",
-  "column_break_6",
-  "validate_hsn_code",
-  "min_hsn_digits",
-  "api_section",
-  "enable_api",
-  "column_break_rk3h",
-  "sandbox_mode",
-  "e_waybill_section",
-  "enable_e_waybill",
-  "enable_e_waybill_from_dn",
-  "fetch_e_waybill_data",
-  "attach_e_waybill_print",
-  "column_break_10",
-  "auto_generate_e_waybill",
-  "e_waybill_threshold",
-  "e_invoice_section",
-  "enable_e_invoice",
-  "auto_generate_e_invoice",
-  "column_break_17",
-  "e_invoice_applicable_from",
-  "other_apis_section",
-  "autofill_party_info",
-  "accounts_tab",
+  "column_break_3",
+  "hsn_wise_tax_breakup",
+  "gstin_email_sent_on",
+  "section_break_4",
   "gst_accounts",
-  "credentials_tab",
-  "credentials",
-  "api_secret"
+  "b2c_limit"
  ],
  "fields": [
   {
@@ -51,7 +28,7 @@
    "default": "0",
    "fieldname": "hsn_wise_tax_breakup",
    "fieldtype": "Check",
-   "label": "View Tax Breakup Table Based On HSN Code"
+   "label": "Tax Breakup Table Based On HSN Code"
   },
   {
    "fieldname": "gst_accounts",
@@ -60,186 +37,42 @@
    "options": "GST Account"
   },
   {
-   "fieldname": "api_secret",
-   "fieldtype": "Password",
-   "hidden": 1,
-   "label": "API Secret"
+   "fieldname": "gst_summary",
+   "fieldtype": "HTML",
+   "label": "GST Summary"
   },
   {
-   "default": "1",
-   "description": "As per <a href='\\\"https://www.cbic.gov.in/resources/htdocs-cbec/gst/notfctn-78-central-tax-english-2020.pdf\\\"'>Central Tax Notification No. 78/2020</a>, HSN/SAC code must be specified in Sales Invoice with atleast 4 or 6 digits (based on turnover)",
-   "fieldname": "validate_hsn_code",
-   "fieldtype": "Check",
-   "label": "Validate HSN/SAC Code in Sales Items and Transactions"
+   "fieldname": "gst_tax_settings_section_section",
+   "fieldtype": "Section Break",
+   "label": "GST Tax Settings"
   },
   {
-   "default": "6",
-   "depends_on": "eval: doc.validate_hsn_code",
-   "fieldname": "min_hsn_digits",
-   "fieldtype": "Select",
+   "description": "Set Invoice Value for B2C. B2CL and B2CS calculated based on this invoice value.\n",
+   "fieldname": "b2c_limit",
+   "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Minimum HSN/SAC Code Digits",
-   "options": "4\n6"
+   "label": "B2C Limit",
+   "reqd": 1
   },
   {
-   "fieldname": "accounts_tab",
-   "fieldtype": "Tab Break",
-   "label": "Accounts"
-  },
-  {
-   "fieldname": "credentials",
-   "fieldtype": "Table",
-   "label": "Credentials",
-   "options": "GST Credential"
-  },
-  {
-   "fieldname": "general_tab",
-   "fieldtype": "Tab Break",
-   "label": "General"
-  },
-  {
-   "fieldname": "e_waybill_section",
-   "fieldtype": "Section Break",
-   "label": "e-Waybill"
-  },
-  {
-   "default": "1",
-   "fieldname": "enable_e_waybill",
-   "fieldtype": "Check",
-   "label": "Enable e-Waybill Features"
-  },
-  {
-   "fieldname": "column_break_10",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "1",
-   "description": "If checked, a PDF of the e-Waybill will be automatically attached to the transaction after it's generation",
-   "fieldname": "attach_e_waybill_print",
-   "fieldtype": "Check",
-   "label": "Attach e-Waybill Print After Generation"
-  },
-  {
-   "default": "0",
-   "description": "Enable this to use API features like e-Waybill / e-Invoice generation from your ERP",
-   "fieldname": "enable_api",
-   "fieldtype": "Check",
-   "label": "Enable API Features"
-  },
-  {
-   "fieldname": "e_invoice_section",
-   "fieldtype": "Section Break",
-   "label": "e-Invoice"
-  },
-  {
-   "depends_on": "eval: doc.enable_e_invoice",
-   "description": "Posting Date from which e-Invoicing features should be enabled",
-   "fieldname": "e_invoice_applicable_from",
+   "fieldname": "gstin_email_sent_on",
    "fieldtype": "Date",
-   "label": "e-Invoice Applicable From"
+   "label": "GSTIN Email Sent On",
+   "read_only": 1
   },
   {
-   "fieldname": "column_break_17",
+   "fieldname": "column_break_3",
    "fieldtype": "Column Break"
   },
   {
-   "default": "50000",
-   "depends_on": "eval: doc.enable_e_waybill",
-   "description": "When selling goods with total Sales Invoice value greater than this amount, a prompt will be displayed if e-Waybill hasn't been generated upon submission",
-   "fieldname": "e_waybill_threshold",
-   "fieldtype": "Currency",
-   "label": "Invoice Value Threshold for e-Waybill Generation"
-  },
-  {
-   "default": "1",
-   "description": "e-Waybill will be automatically generated after Sales Invoice submission if the invoice value threshold is met, and data is available and valid",
-   "fieldname": "auto_generate_e_waybill",
-   "fieldtype": "Check",
-   "label": "Automatically Generate e-Waybill on Invoice Submission"
-  },
-  {
-   "default": "1",
-   "description": "Automatically fetch e-Waybill data after it's generation for printing or logging purposes. This will lead to one additional API request.",
-   "fieldname": "fetch_e_waybill_data",
-   "fieldtype": "Check",
-   "label": "Fetch e-Waybill Data After Generation"
-  },
-  {
-   "default": "1",
-   "depends_on": "eval: doc.enable_e_invoice",
-   "description": "e-Invoice will be automatically generated after Sales Invoice submission if applicable",
-   "fieldname": "auto_generate_e_invoice",
-   "fieldtype": "Check",
-   "label": "Automatically Generate e-Invoice on Invoice Submission"
-  },
-  {
-   "default": "0",
-   "fieldname": "enable_e_invoice",
-   "fieldtype": "Check",
-   "label": "Enable e-Invoicing"
-  },
-  {
-   "default": "0",
-   "fieldname": "enable_reverse_charge_in_sales",
-   "fieldtype": "Check",
-   "label": "Enable Reverse Charge in Sales Transactions"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval: doc.enable_e_waybill",
-   "fieldname": "enable_e_waybill_from_dn",
-   "fieldtype": "Check",
-   "label": "Enable e-Waybill Generation from Delivery Note"
-  },
-  {
-   "default": "0",
-   "description": "Fields and validations for these transactions will apply based on this setting",
-   "fieldname": "enable_overseas_transactions",
-   "fieldtype": "Check",
-   "label": "Enable SEZ / Overseas Transactions"
-  },
-  {
-   "fieldname": "other_apis_section",
-   "fieldtype": "Section Break",
-   "label": "Other APIs"
-  },
-  {
-   "default": "1",
-   "description": "When creating a new Customer / Supplier / Address using the Quick Entry form, other fields will be automatically fetched based on the GSTIN entered",
-   "fieldname": "autofill_party_info",
-   "fieldtype": "Check",
-   "label": "Autofill Party Information based on GSTIN"
-  },
-  {
-   "fieldname": "api_section",
-   "fieldtype": "Section Break",
-   "label": "API"
-  },
-  {
-   "fieldname": "column_break_rk3h",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "description": "Enable this to explore GST API features in a test environment. API actions executed in sandbox mode won't affect your actual business data on the GST portal",
-   "fieldname": "sandbox_mode",
-   "fieldtype": "Check",
-   "label": "Use API in Sandbox Mode?"
-  },
-  {
-   "fieldname": "column_break_6",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "credentials_tab",
-   "fieldtype": "Tab Break",
-   "label": "Credentials"
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-04-05 16:42:21.542397",
+ "modified": "2023-04-10 18:12:55.419088",
  "modified_by": "Administrator",
  "module": "ERPNext GST Compliance",
  "name": "GST Settings",

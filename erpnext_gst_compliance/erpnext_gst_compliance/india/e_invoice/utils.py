@@ -32,7 +32,7 @@ from frappe.utils.data import (
 )
 from frappe.utils.scheduler import is_scheduler_inactive
 from pyqrcode import create as qrcreate
-from erpnext_gst_compliance.erpnext_gst_compliance.erpnext_gst_compliance.india.utils import get_gst_accounts, get_place_of_supply
+from erpnext_gst_compliance.erpnext_gst_compliance.india.utils import get_gst_accounts, get_place_of_supply
 
 
 @frappe.whitelist()
@@ -85,6 +85,7 @@ def validate_eligibility(doc):
 		or has_non_gst_item
 	):
 		return False
+	print("///////////////////***************//////////////////////////////////")
 
 	return True
 

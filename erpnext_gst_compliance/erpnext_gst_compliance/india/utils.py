@@ -810,8 +810,12 @@ def validate_doc(doc):
 	for fieldname in reqd_fields:
 		if not doc.get(fieldname):
 			frappe.throw(
-				_("{} is required to generate E-Way Bill JSON").format(doc.meta.get_label(fieldname))
+				_("{} is required to generate E-Way Bill JSON").format(doc.meta.get_label(fieldname)),
+				print("//////////////////////////////*************************////////",fieldname)
 			)
+			
+
+
 
 	if len(doc.company_gstin) < 15:
 		frappe.throw(_("You must be a registered supplier to generate e-Way Bill"))
@@ -1074,7 +1078,6 @@ def update_taxable_values(doc, method):
 				considered_rows.append(prev_row_id)
 
 	for item in doc.get("items"):
-		print("*********************************************************",doc.get("items"))
 		if (
 			doc.apply_discount_on == "Grand Total"
 			and doc.discount_amount
